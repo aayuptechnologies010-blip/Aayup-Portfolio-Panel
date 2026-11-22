@@ -14,6 +14,7 @@ import {
   CheckCircle2,
 } from "lucide-react";
 import { fetchWithAuth } from "@/lib/api";
+import { TableSkeleton } from "@/components/admin/Skeleton";
 
 export default function AdminLeadsPage() {
   const [leads, setLeads] = useState<any[]>([]);

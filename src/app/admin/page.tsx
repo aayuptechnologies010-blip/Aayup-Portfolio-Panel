@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import AdminLayout from "@/components/admin/AdminLayout";
+import dynamic from "next/dynamic";
 import { 
   FolderGit2, 
   Users, 
@@ -21,21 +21,53 @@ import {
 } from "lucide-react";
 import { API_BASE_URL, fetchWithAuth } from "@/lib/api";
 import Link from "next/link";
-import {
-  ResponsiveContainer,
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  Tooltip,
-  PieChart,
-  Pie,
-  Cell,
-  Legend,
-  AreaChart,
-  Area,
-  CartesianGrid,
-} from "recharts";
+import { DashboardSkeleton } from "@/components/admin/Skeleton";
+
+// Dynamic SSR-disabled imports for Recharts to avoid SSR webpack module mismatch
+const ResponsiveContainer = dynamic(
+  () => import("recharts").then((mod) => mod.ResponsiveContainer),
+  { ssr: false }
+);
+const BarChart = dynamic(
+  () => import("recharts").then((mod) => mod.BarChart),
+  { ssr: false }
+);
+const Bar = dynamic(
+  () => import("recharts").then((mod) => mod.Bar),
+  { ssr: false }
+);
+const XAxis = dynamic(
+  () => import("recharts").then((mod) => mod.XAxis),
+  { ssr: false }
+);
+const YAxis = dynamic(
+  () => import("recharts").then((mod) => mod.YAxis),
+  { ssr: false }
+);
+const Tooltip = dynamic(
+  () => import("recharts").then((mod) => mod.Tooltip),
+  { ssr: false }
+);
+const PieChart = dynamic(
+  () => import("recharts").then((mod) => mod.PieChart),
+  { ssr: false }
+);
+const Pie = dynamic(
+  () => import("recharts").then((mod) => mod.Pie),
+  { ssr: false }
+);
+const Cell = dynamic(
+  () => import("recharts").then((mod) => mod.Cell),
+  { ssr: false }
+);
+const Legend = dynamic(
+  () => import("recharts").then((mod) => mod.Legend),
+  { ssr: false }
+);
+const CartesianGrid = dynamic(
+  () => import("recharts").then((mod) => mod.CartesianGrid),
+  { ssr: false }
+);
 
 interface LeadItem {
   _id: string;
@@ -169,9 +201,12 @@ export default function AdminDashboardPage() {
 
   const PIE_COLORS = ["#1769AA", "#38BDF8", "#F59E0B", "#10B981"];
 
+  if (loading) {
+    return <DashboardSkeleton />;
+  }
+
   return (
-    <AdminLayout>
-      <div className="space-y-8 text-left">
+    <div className="space-y-8 text-left">
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-[#E2E8F0]">
           <div>
@@ -437,6 +472,5 @@ export default function AdminDashboardPage() {
           </div>
         </div>
       </div>
-    </AdminLayout>
   );
 }

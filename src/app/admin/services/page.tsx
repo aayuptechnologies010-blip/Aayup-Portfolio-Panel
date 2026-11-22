@@ -20,6 +20,7 @@ import {
   Layers
 } from "lucide-react";
 import { fetchWithAuth } from "@/lib/api";
+import { TableSkeleton } from "@/components/admin/Skeleton";
 
 interface ServiceItem {
   _id: string;

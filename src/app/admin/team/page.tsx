@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 import { API_BASE_URL, fetchWithAuth } from "@/lib/api";
 import Image from "next/image";
+import { TableSkeleton } from "@/components/admin/Skeleton";
 
 export default function AdminTeamPage() {
   const [members, setMembers] = useState<any[]>([]);
@@ -86,7 +87,7 @@ export default function AdminTeamPage() {
       });
       const data = await res.json();
       if (data.success) {
-        setFormData({ ...formData, avatar: `http://localhost:5000${data.url}` });
+        setFormData({ ...formData, avatar: data.url });
       }
     } catch (err) {
       alert("Failed to upload image.");
