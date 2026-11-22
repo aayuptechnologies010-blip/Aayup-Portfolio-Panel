@@ -115,10 +115,6 @@ export default function AdminLoginPage() {
             <ArrowRight className="w-4 h-4" />
           </button>
         </form>
-
-        <div className="mt-6 pt-4 border-t border-slate-100 text-center text-xs text-slate-400">
-          Default seed credentials: <strong className="text-slate-600">admin@aayuptechnologies.com / admin@123</strong>
-        </div>
       </div>
     </div>
   );
